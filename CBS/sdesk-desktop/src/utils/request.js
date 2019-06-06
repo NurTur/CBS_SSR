@@ -65,6 +65,7 @@ const request = method => (url, params) => {
 	if (/post|put/.test(method)) {
 		opts.body = JSON.stringify(params)
 	}
+	console.log(uri);
 	return fetch(uri, opts)
 		.then(checkStatus)
 		.then(parseJSON)

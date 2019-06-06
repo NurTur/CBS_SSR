@@ -15,7 +15,8 @@ module.exports = env => {
         output: {
           path: path.resolve(__dirname,'..','build/public'),
           publicPath: `/`
-        },      
+        },
+      
        module: {
         rules: [
             {
