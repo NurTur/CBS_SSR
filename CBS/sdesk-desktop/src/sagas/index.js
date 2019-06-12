@@ -1,11 +1,14 @@
-import {call, put, all, select,takeEvery} from 'redux-saga/effects';
+import * as ActionTypes from '../actions/actionTypes';
+import {call, put, all, select,takeEvery,takeLatest} from 'redux-saga/effects';
 import request from '../utils/request';
 import {EntityUserLoaded, EntityReferencesLoaded, EntityTicketsLoaded } from '../actions/entity';
 import { SetLoading,SetError } from '../actions/global';
-import {requestDog,requestDogSuccess,requestDogError } from "../actions/dogs";
+import { LoadCommentsById } from '../actions/comments';
+
 
 
 const getFilter = (state) => state.Filter;
+const getComments = (state) => state.Comments;
 /************************************************************/
 function* fetchAppUser() {
 	const url = `me`;
@@ -43,25 +46,31 @@ function* fetchTicketsAsync()
 		} catch (error) {
 		yield put(SetError()) }
 }
+
 /************************************************************/
 
-function* fetchTicketsClick()
+function *fetchTicketComments(action) {
+	const url = `api/v2/comments`;
+	const ticketId=action.payload;
+	const res= yield call(request.get, url, {ticketId});
+	yield put(LoadCommentsById(res))	
+}
+
+function* fetchCommentsAsync()
 {
 	try {
 		yield put(SetLoading(true))
-		yield fetchTickets()
+		yield fetchTicketComments()
 		yield put(SetLoading(false))
 		} catch (error) {
 		yield put(SetError()) }
 }
-/************************************************************/
-// Sagas
-function* watchFetchDog() {
-  yield takeEvery('FETCHED_DOG', fetchTicketsClick);
-}
 
+/************************************************************/
 export default function* rootSaga() {	
 	yield fetchBasicAsync()
 	yield fetchTicketsAsync()
-	yield watchFetchDog()
+	yield takeLatest('FETCHED_DOG', fetchTicketsAsync)
+	yield takeLatest(ActionTypes.GET_TICKET_ID, fetchTicketComments)
+	
 }

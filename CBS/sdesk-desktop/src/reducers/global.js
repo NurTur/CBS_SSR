@@ -1,4 +1,4 @@
-import { UPDATE_COLUMN,SET_LOADING,SET_ERROR } from "../actions/actionTypes";
+import { UPDATE_COLUMN,SET_LOADING,SET_ERROR,GET_TICKET_ID } from "../actions/actionTypes";
 
 const InitalState ={ columns:
 [{id:1, value:"Номер заявки",status:true, constant:true}, 
@@ -24,7 +24,7 @@ request:  {loading: false, error: false} }
 
 function Global(state = InitalState, action) {
     switch (action.type) {
-        case UPDATE_COLUMN: return Object.assign({},state,{columns:action.payload});         
+        case UPDATE_COLUMN: return Object.assign({},state,{columns:action.payload}); 
         case SET_LOADING: return Object.assign({},state,{request:{ loading:action.payload, error:false}});
         case SET_ERROR: return Object.assign({},state,{request:{ loading: false, error: true }});
         default: return state;

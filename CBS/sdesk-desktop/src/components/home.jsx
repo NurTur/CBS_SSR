@@ -1,20 +1,27 @@
 import React from "react";
 import TableTickets from "./tableTickets.jsx";
+import AdditionalBox from "./additionalBox.jsx";
 import {connect} from "react-redux";
-import Loader from "./loader.jsx"
+import Loader from "./loader.jsx";
+import "../styles/home.less";
 
 class Home extends React.Component { 
     render( ) {        
         const {loading,error}=this.props.Global.request;
+        console.log("sfs")
         return ( 
-            <div>   
-            <TableTickets/>          
+            <React.Fragment>  
+               <div id="home">
+                <TableTickets className="tableHome"/>
+                <AdditionalBox className="additionalHome"/>      
+                </div>
+            
             {loading 
               ? <Loader/>
               : error
                   ? <p>Error, try again</p>
                   : ""}
-        </div>);
+        </React.Fragment>);
     }
 }
 

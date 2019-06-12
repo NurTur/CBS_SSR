@@ -2,16 +2,18 @@ import React from 'react';
 import { connect } from "react-redux";
 import { Table } from 'reactstrap';
 import Selector from "./selector.jsx";
+import { bindActionCreators } from "redux";
+import { GetTicketId,LoadComments } from "../actions/comments";
+
 import "../styles/tableTickets.less";
 
 class TableTickets extends React.Component {
 
-
   render() {
+    console.log("SSSSSSSSSS");
     const {columns}=this.props.Global;
     const {rows,count}=this.props.Entity.tickets;
     const {servicetypes,statuses,cities}=this.props.Entity;
- 
     return (
        <div id="table">
       <Table striped bordered hover>
@@ -19,14 +21,14 @@ class TableTickets extends React.Component {
           <tr>
           { columns.filter(function (el) { 
             return (el.status)
-          }).map((e,i)=><th id={`col${e.id}`} key={e.id}><Selector id={e.id} value={e.value}/></th>)}    
+          }).map((e)=><th id={`col${e.id}`} key={e.id}><Selector id={e.id} value={e.value}/></th>)}    
           </tr>
         </thead>
         <tbody>  
          {count>0?
          rows.map((e)=>
-         <tr>
-         {columns[0].status && <td scope="row">{e.number}</td>}
+         <tr onClick={()=>this.props.GetTicketId(e.id)}>
+         {columns[0].status && <td>{e.number}</td>}
          {columns[1].status && <td>{servicetypes.find(x => x.id === e.serviceTypeId).name}</td>}
          {columns[2].status && <td>{e.date}</td>}
          {columns[3].status && <td>{e.warrantyFlag===1?"Да":""}</td>}
@@ -64,4 +66,5 @@ class TableTickets extends React.Component {
   }
 }
 
-export default connect(state => ({ Global: state.Global,Entity: state.Entity }))(TableTickets);
+export default connect(state => ({ Comments:state.Comments,Global: state.Global,Entity: state.Entity }),
+dispatch => bindActionCreators({ GetTicketId, LoadComments }, dispatch)) (TableTickets);
