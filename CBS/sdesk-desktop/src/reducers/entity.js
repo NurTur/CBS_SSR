@@ -2,7 +2,7 @@ import * as ActionTypes from "../actions/actionTypes";
 
 const initialState = { appUser: {},cities:[],
 					   servicetypes:[],statuses:[],
-					   types:[],vendors:[],hash:"",
+					   types:[],vendors:[],devices:[],hash:"",
 					   tickets:{count: 0, rows:[]} }
 	  
 function Entity(state = initialState, action) {
@@ -16,6 +16,7 @@ function Entity(state = initialState, action) {
 		statuses:action.payload['statuses'],
 		types:action.payload['types'],
 		vendors:action.payload['vendors'],
+		devices:action.payload['devices'],		
 		hash:action.payload["hash"]
 	})
 	case ActionTypes.ENTITY_TICKETS_LOADED: 

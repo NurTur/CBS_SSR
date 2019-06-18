@@ -3,12 +3,12 @@ import {call, put, all, select,takeEvery,takeLatest} from 'redux-saga/effects';
 import request from '../utils/request';
 import {EntityUserLoaded, EntityReferencesLoaded, EntityTicketsLoaded } from '../actions/entity';
 import { SetLoading,SetError } from '../actions/global';
-import { LoadCommentsById } from '../actions/comments';
+import { LoadCommentsById,LoadHistoryById } from '../actions/additional';
 
 
 
 const getFilter = (state) => state.Filter;
-const getComments = (state) => state.Comments;
+const getAdditional = (state) => state.Additional;
 /************************************************************/
 function* fetchAppUser() {
 	const url = `me`;
@@ -25,6 +25,7 @@ function* fetchReferences()
 
 function* fetchBasicAsync() {
 		yield all([fetchAppUser(),fetchReferences()]) 
+		
 }
 
 /***********************************************************/
@@ -49,28 +50,45 @@ function* fetchTicketsAsync()
 
 /************************************************************/
 
-function *fetchTicketComments(action) {
-	const url = `api/v2/comments`;
+function *fetchTicketAdditional(action) {
 	const ticketId=action.payload;
+	const url = `api/v2/comments`;
 	const res= yield call(request.get, url, {ticketId});
-	yield put(LoadCommentsById(res))	
+	yield put(LoadCommentsById(res));
+	const url2 = `api/v2/ticket-history`;
+	const res2= yield call(request.get, url2, {ticketId});
+	yield put(LoadHistoryById(res2));	
 }
 
-function* fetchCommentsAsync()
-{
-	try {
-		yield put(SetLoading(true))
-		yield fetchTicketComments()
-		yield put(SetLoading(false))
-		} catch (error) {
-		yield put(SetError()) }
-}
 
 /************************************************************/
+function *postTicketComment({payload: comment}) {
+	const url = `api/v2/comments`;
+	const params =yield select(getAdditional);
+	comment.ticketId=params.ticketId;
+	yield call(request.post, url, comment);
+	const ticketId=params.ticketId;
+	const res= yield call(request.get, url, {ticketId});
+	yield put(LoadCommentsById(res))
+}
+/************************************************************/
+
+function *editTicketComment({payload: comment}) {
+	const url = `api/v2/comments`;
+	const params =yield select(getAdditional);
+	comment.ticketId=params.ticketId;
+	yield call(request.put, url, comment)
+	const ticketId=params.ticketId;
+	const res= yield call(request.get, url, {ticketId});
+	yield put(LoadCommentsById(res))
+}
+
 export default function* rootSaga() {	
 	yield fetchBasicAsync()
 	yield fetchTicketsAsync()
 	yield takeLatest('FETCHED_DOG', fetchTicketsAsync)
-	yield takeLatest(ActionTypes.GET_TICKET_ID, fetchTicketComments)
+	yield takeLatest(ActionTypes.GET_TICKET_ID, fetchTicketAdditional)
+	yield takeLatest(ActionTypes.POST_COMMENT, postTicketComment)
+	yield takeLatest(ActionTypes.EDIT_COMMENT, editTicketComment)
 	
 }

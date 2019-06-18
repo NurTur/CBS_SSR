@@ -15,9 +15,10 @@ class Header extends React.Component
     return <div id="header">   
      <UncontrolledTooltip placement="top" target="logoutTooltip">Выход</UncontrolledTooltip>
      <UncontrolledTooltip placement="top" target="settingsTooltip">Настройки</UncontrolledTooltip>
+     <UncontrolledTooltip placement="top" target="searchTooltip">Поиск</UncontrolledTooltip>
     
     <div className="logotip"><img alt="logo" className="img" src="/images/logo.png" />CBS SERVICE</div>
-    <div className="search" onClick={()=>this.props.fetchDog()}></div>  
+    <div id="searchTooltip" className="search" onClick={()=>this.props.fetchDog()}></div>  
     <div className="appuser">{name}</div>
     <div id="logoutTooltip" className="logout" onClick={() => window.location = `logout`}></div> 
     <div id="settingsTooltip" className="settings"><SettingsHome /></div>

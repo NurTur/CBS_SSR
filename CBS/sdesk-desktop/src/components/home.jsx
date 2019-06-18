@@ -8,12 +8,11 @@ import "../styles/home.less";
 class Home extends React.Component { 
     render( ) {        
         const {loading,error}=this.props.Global.request;
-        console.log("sfs")
         return ( 
             <React.Fragment>  
-               <div id="home">
+               <div id="home">          
                 <TableTickets className="tableHome"/>
-                <AdditionalBox className="additionalHome"/>      
+                <AdditionalBox className="additionHome"/>      
                 </div>
             
             {loading 
