@@ -16,7 +16,7 @@ class TableTickets extends React.Component {
     const {servicetypes,statuses,cities}=this.props.Entity;
     return (
      <div id="table">
-      <Table striped bordered hover class="fixed_header">
+      <Table striped bordered hover>
         <thead>
           <tr>
           { columns.filter(function (el) { 

@@ -77,7 +77,7 @@ class UpdateComment extends React.Component {
 
 
   render() {
-     console.log("====>",this.state.modal,'  ',this.props.data,'  ',this.props.modal,' ',this.state.text,' ',this.state.parentArr,' ',this.state.childArr);
+     console.log("====>",this.props.data,'  ',this.props.modal,' ',this.state.text,' ',this.state.parentArr,' ',this.state.childArr);
     const {vendors,appUser}=this.props.Entity;  
     const {knotName,parentArr,childArr,vendName,knot,text}=this.state;    
    

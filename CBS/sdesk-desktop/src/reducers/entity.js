@@ -2,7 +2,10 @@ import * as ActionTypes from "../actions/actionTypes";
 
 const initialState = { appUser: {},cities:[],
 					   servicetypes:[],statuses:[],
-					   types:[],vendors:[],devices:[],hash:"",
+					   types:[],vendors:[],devices:[],
+					   customers:[],  
+					   preformers:[],
+					   hash:"",
 					   tickets:{count: 0, rows:[]} }
 	  
 function Entity(state = initialState, action) {
@@ -10,7 +13,7 @@ function Entity(state = initialState, action) {
 	case ActionTypes.ENTITY_USER_LOADED: 
     	return Object.assign({},state,{appUser:action.payload})
 	case ActionTypes.ENTITY_REFERENCES_LOADED: 
-		return Object.assign({},state,{cities:action.payload['cities'],
+		return Object.assign({},state,{
 		cities:action.payload['cities'],
 		servicetypes:action.payload['service-types'],
 		statuses:action.payload['statuses'],
@@ -21,7 +24,6 @@ function Entity(state = initialState, action) {
 	})
 	case ActionTypes.ENTITY_TICKETS_LOADED: 
 		return Object.assign({},state,{tickets:action.payload})	
-		
 	default: return state
 	}
 }

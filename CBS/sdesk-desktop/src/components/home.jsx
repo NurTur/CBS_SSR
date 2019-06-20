@@ -12,7 +12,7 @@ class Home extends React.Component {
             <React.Fragment>  
                <div id="home">          
                 <TableTickets className="tableHome"/>
-                <AdditionalBox className="additionHome"/>      
+                {/*<AdditionalBox className="additionHome"/>   */}   
                 </div>
             
             {loading 

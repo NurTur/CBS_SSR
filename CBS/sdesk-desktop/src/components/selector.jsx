@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {AddRequest,RemoveRequest } from "../actions/filter";
 import DropdownSelect from "./shared/dropdownSelect.jsx";
+import DropdownSearch from "./shared/dropdownSearch.jsx";
 import DatePicker from './shared/datePicker.jsx';
 import "../styles/selector.less";
 
@@ -147,7 +148,12 @@ if (id===3)
 /****************************************************************************************/
 if (id===9)
 {
-   return ( <div id="title">{value} <input type='text'/></div>);  
+  return (<DropdownSearch title={value} name={"customerId"}/>);  
+}
+/****************************************************************************************/
+if (id===12)
+{
+  return (<DropdownSearch title={value} name={"performerId"}/>);  
 }
 /****************************************************************************************/
     else { return <div id="title">{value}</div>}  
