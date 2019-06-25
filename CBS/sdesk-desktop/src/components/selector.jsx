@@ -4,115 +4,23 @@ import { bindActionCreators } from "redux";
 import {AddRequest,RemoveRequest } from "../actions/filter";
 import DropdownSelect from "./shared/dropdownSelect.jsx";
 import DropdownSearch from "./shared/dropdownSearch.jsx";
+import DropdownRadio from "./shared/dropdownRadio.jsx";
+import DropdownDate1 from "./shared/dropdownDate1.jsx";
+import DropdownSearchExactly from "./shared/dropdownSearchExactly.jsx";
+
+
 import DatePicker from './shared/datePicker.jsx';
 import "../styles/selector.less";
 
 
 class Selector extends React.Component {
 
-
-/*handleChecked=(id,act,checkYes,checkNo)=>{
-if (id===4)
-{
-  if (act===1 && checkYes===false) {  this.props.AddRequest({warrantyFlag:1}) }
-  if (act===1 && checkYes===true) {  this.props.RemoveRequest('warrantyFlag') }
-  if (act===0 && checkNo===false) {  this.props.AddRequest({warrantyFlag:0}) }
-  if (act===0 && checkNo) {  this.props.RemoveRequest('warrantyFlag') }
-}
-if (id===5)
-{
-  if (act===1 && checkYes===false) {  this.props.AddRequest({cbsWarrantyFlag:1}) }
-  if (act===1 && checkYes) {  this.props.RemoveRequest('cbsWarrantyFlag') }
-  if (act===0 && checkNo===false) {  this.props.AddRequest({cbsWarrantyFlag:0}) }
-  if (act===0 && checkNo) {  this.props.RemoveRequest('cbsWarrantyFlag') }
-}
-if (id===18)
-{
-  if (act===1 && checkYes===false) {  this.props.AddRequest({subcontractorFlag:1}) }
-  if (act===1 && checkYes) {  this.props.RemoveRequest('subcontractorFlag') }
-  if (act===0 && checkNo===false) {  this.props.AddRequest({subcontractorFlag:0}) }
-  if (act===0 && checkNo) {  this.props.RemoveRequest('subcontractorFlag') }
-}
-}*/
-
-
-
-
   render() {
     const {value,id} = this.props;
     const {ticket}=this.props.Filter.filters;
-    console.log("______AA__");
-    /*if (id===4)
-    {
-      let checkYes=false;
-      let checkNo=false;      
-      if (ticket.hasOwnProperty('warrantyFlag'))
-      {
-        checkYes=ticket.warrantyFlag===1?true:false;
-        checkNo =ticket.warrantyFlag===0?true:false;
-      }        
-      return (
-          <div id="title">{value}
-          <div id="checkBox">    
-          <label className="firstBox">
-          <input type="checkbox" 
-           onChange={()=>this.handleChecked(id,1,checkYes,checkNo) } checked={checkYes}/>Да
-         </label>    
-         <label className="secondBox">
-          <input type="checkbox"
-            onChange={()=>this.handleChecked(id,0,checkYes,checkNo) } checked={checkNo}/>Нет
-         </label>  
-          </div>         
-         </div>)     
-    }
-    if (id===5)
-    {
-      let checkYes=false;
-      let checkNo=false;      
-      if (ticket.hasOwnProperty('cbsWarrantyFlag'))
-      {
-        checkYes=ticket.cbsWarrantyFlag===1?true:false;
-        checkNo =ticket.cbsWarrantyFlag===0?true:false;
-      }        
-      return (
-          <div id="title">{value}
-          <div id="checkBox">    
-          <label className="firstBox">
-          <input type="checkbox" 
-           onChange={()=>this.handleChecked(id,1,checkYes,checkNo) } checked={checkYes}/>Да
-         </label>    
-         <label className="secondBox">
-          <input type="checkbox"
-            onChange={()=>this.handleChecked(id,0,checkYes,checkNo) } checked={checkNo}/>Нет
-         </label>  
-          </div>         
-         </div>)     
-    }
-    if (id===18)
-    {
-      let checkYes=false;
-      let checkNo=false;      
-      if (ticket.hasOwnProperty('subcontractorFlag'))
-      {
-        checkYes=ticket.subcontractorFlag===1?true:false;
-        checkNo =ticket.subcontractorFlag===0?true:false;
-      }        
-      return (
-          <div id="title">{value}
-          <div id="checkBox">    
-          <label className="firstBox">
-          <input type="checkbox" 
-           onChange={()=>this.handleChecked(id,1,checkYes,checkNo) } checked={checkYes}/>Да
-         </label>    
-         <label className="secondBox">
-          <input type="checkbox"
-            onChange={()=>this.handleChecked(id,0,checkYes,checkNo) } checked={checkNo}/>Нет
-         </label>  
-          </div>         
-         </div>)     
-    }*/
-    /****************************************************************************************/
-if (id===10)
+   
+/****************************************************************************************/    
+if (id===11)
   {
     let arr=[];
     if (ticket.hasOwnProperty('statusId')) { arr=ticket.statusId['$in'];}   
@@ -120,7 +28,7 @@ if (id===10)
       
   }
 /****************************************************************************************/
-if (id===2)
+if (id===3)
 {
     let arr=[];
     if (ticket.hasOwnProperty('serviceTypeId')) { arr=ticket.serviceTypeId['$in']; }   
@@ -141,22 +49,73 @@ if (id===17)
     return (<DropdownSelect title={value} len={arr.length} array={this.props.Entity.cities} name={"cityId"}/>);  
 }
 /****************************************************************************************/
-if (id===3)
+if (id===4)
 {
    return (<DatePicker title={value}/>);  
 }
 /****************************************************************************************/
-if (id===9)
+if (id===10)
 {
   return (<DropdownSearch title={value} name={"customerId"}/>);  
 }
 /****************************************************************************************/
-if (id===12)
+if (id===13)
 {
   return (<DropdownSearch title={value} name={"performerId"}/>);  
 }
 /****************************************************************************************/
-    else { return <div id="title">{value}</div>}  
+if (id===5)
+{
+    return (<DropdownRadio title={value} name={"warrantyFlag"} />)     
+}
+/****************************************************************************************/
+if (id===6)
+{
+    return (<DropdownRadio title={value} name={"cbsWarrantyFlag"} />)     
+}
+/****************************************************************************************/
+if (id===18)
+{
+    return (<DropdownRadio title={value} name={"subcontractorFlag"} />)     
+}
+/****************************************************************************************/
+if (id===7)
+{
+    return (<DropdownDate1 title={value} name={"endWarrantyDate"} />)     
+}
+/****************************************************************************************/
+if (id===8)
+{
+    return (<DropdownDate1 title={value} name={"endCBSWarrantyDate"} />)     
+}
+/****************************************************************************************/
+if (id===12)
+{
+    return (<DropdownDate1 title={value} name={"timeout"} />)     
+}
+/****************************************************************************************/
+if (id===9)
+{
+    return (<DropdownSearchExactly title={value} name={"commonFieldString"} />)     
+}
+/****************************************************************************************/
+if (id===16)
+{
+    return (<DropdownSearchExactly title={value} name={"regNumber"} />)     
+}
+/****************************************************************************************/
+if (id===15)
+{
+    return (<DropdownSearchExactly title={value} name={"serialNumber"} />)     
+}
+/****************************************************************************************/
+if (id===2)
+{
+    return (<DropdownSearchExactly title={value} name={"number"} />)     
+}
+/****************************************************************************************/
+
+   else { return <div id="title">{value}</div>}  
 }
 }
 
@@ -170,17 +129,3 @@ dispatch => bindActionCreators({ AddRequest,RemoveRequest }, dispatch))(Selector
 
 
 
-
-
-
-/* return (
-    <Dropdown toggle={this.toggle.bind(this)} isOpen={this.state.dropdownOpen}>
-    <DropdownToggle caret id="title">Номер заявки&nbsp;{arr.length}</DropdownToggle>
-    <DropdownMenu className="dropdownMenu">
-    <DropdownItem onClick={()=>this.handleClicked(0,'typeId',7)}>Выбрать все/ Отменить все</DropdownItem>
-    <DropdownItem divider />
-    { this.props.Entity.types.map((e)=>
-    <DropdownItem style={{background:this.Search(e.id,'typeId')}} onClick={()=>this.handleClicked(e.id,'typeId',7)}>{e.name}</DropdownItem>) }
-    </DropdownMenu>
-  </Dropdown>
-  ); */

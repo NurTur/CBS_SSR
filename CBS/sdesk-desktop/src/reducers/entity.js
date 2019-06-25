@@ -2,11 +2,8 @@ import * as ActionTypes from "../actions/actionTypes";
 
 const initialState = { appUser: {},cities:[],
 					   servicetypes:[],statuses:[],
-					   types:[],vendors:[],devices:[],
-					   customers:[],  
-					   preformers:[],
-					   hash:"",
-					   tickets:{count: 0, rows:[]} }
+					   types:[],vendors:[],devices:[], 
+					   tickets:{count: 0, rows:[]}, hash:"" }
 	  
 function Entity(state = initialState, action) {
 	switch (action.type) {

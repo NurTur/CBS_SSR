@@ -49,7 +49,9 @@ const errorHandler = async response => {
 }
 
 const request = method => (url, params) => {
-	console.log("URI____________________",url,'_____________________',params,'________');
+	
+	
+	console.log("UR____________________",url,'_____________________',params,'________');
 	let uri = `/${url}`
 	const opts = {
 		headers: {

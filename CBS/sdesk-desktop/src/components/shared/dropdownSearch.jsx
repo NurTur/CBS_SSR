@@ -76,12 +76,10 @@ toggle=()=>{ this.setState(prevState =>({ dropdownOpen: !prevState.dropdownOpen}
 
  render() {
     const {searchArray,selectArray}=this.state;
-    console.log("QAWQ",this.state.dropdownOpen, '  + ',this.state.value," + ",
-    this.state.searchArray," + ",this.state.selectArray);
     return (
         <Dropdown toggle={()=>this.toggle()} isOpen={this.state.dropdownOpen}>
         <DropdownToggle caret id="title">{this.props.title}&nbsp;{selectArray.length}</DropdownToggle>
-        <DropdownMenu className="dropdownMenu" style={{overflow:"scroll", width:"280px"}}>
+        <DropdownMenu className="dropdownSearch">
         <DropdownItem onClick={()=>this.toggle()}>
         <Input placeholder="Поиск"  type="text"
            value={this.state.value} onChange={this.handleChange}/>
