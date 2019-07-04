@@ -104,14 +104,14 @@ class AddComment extends React.Component {
           <Col sm="4"><textarea className="box3" type="text" 
           value={text} onChange={this.handleChangeText} />
           </Col> 
-          </Row>     
+        </Row>     
           </ModalBody >
           <ModalFooter>        
            
             {((knot || vendName==="(Без вендора)") && text.length>4)?
             <Button color="primary" onClick={()=>this.postComment(text,appUser.id,knot)}>Добавить</Button>:
             <Button color="secondary" disabled>Добавить</Button>}
-          </ModalFooter>
+        </ModalFooter>
         </Modal>
     </React.Fragment>
     );

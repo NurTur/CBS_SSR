@@ -4,17 +4,19 @@ import { Table } from 'reactstrap';
 import Selector from "./selector.jsx";
 import { bindActionCreators } from "redux";
 import { GetTicketId,LoadComments } from "../actions/additional";
-import { Button } from 'reactstrap';
+import ShowTicketsInfo from "./shared/show_tickets_info/index.jsx"
 import "../styles/tableTickets.less";
 
 class TableTickets extends React.Component {
-
   render() {
     
     const {columns}=this.props.Global;
     const {rows,count}=this.props.Entity.tickets;
     const {servicetypes,statuses,cities}=this.props.Entity;
+
+
     return (
+      <React.Fragment>       
      <div id="table">
       <Table striped bordered hover>
         <thead>
@@ -28,7 +30,7 @@ class TableTickets extends React.Component {
          {count>0?
          rows.map((e)=>
          <tr onClick={()=>this.props.GetTicketId(e.id)}>
-         {columns[0].status && <td id="col1"><Button color="primary">Инфо</Button></td>}
+         {columns[0].status && <td id="col1">< ShowTicketsInfo item={e} /></td>}
          {columns[1].status && <td id="col2">{e.number}</td>}
          {columns[2].status && <td id="col3">{servicetypes.find(x => x.id === e.serviceTypeId).name}</td>}
          {columns[3].status && <td id="col4">{e.date}</td>}
@@ -61,7 +63,7 @@ class TableTickets extends React.Component {
          </Table>
        </div>
      
-      
+       </React.Fragment>
     );
   }
 }
