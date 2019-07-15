@@ -1,9 +1,9 @@
 import * as ActionTypes from '../actions/actionTypes';
 import {call, put, all, select,takeEvery,takeLatest} from 'redux-saga/effects';
 import request from '../utils/request';
-import {EntityUserLoaded, EntityReferencesLoaded, EntityTicketsLoaded } from '../actions/entity';
+import {EntityUserLoaded, EntityReferencesLoaded, EntityTicketsLoaded, EntityAllusersLoaded } from '../actions/entity';
 import { SetLoading,SetError } from '../actions/global';
-import { LoadCommentsById,LoadHistoryById } from '../actions/additional';
+import { LoadCommentsById,LoadHistoryById, LoadTree } from '../actions/additional';
 
 
 
@@ -16,6 +16,12 @@ function* fetchAppUser() {
 	yield put(EntityUserLoaded(obj));
 }
 
+function* fetchAppAllusers() {
+	const url =`api/v2/users`;
+	const obj = yield call(request.get, url)
+	yield put(EntityAllusersLoaded(obj));
+}
+
 function* fetchReferences()
 {
 	const url = `api/v2/references`;
@@ -24,7 +30,7 @@ function* fetchReferences()
 }
 
 function* fetchBasicAsync() {
-		yield all([fetchAppUser(),fetchReferences()]) 
+		yield all([fetchAppUser(),fetchReferences(),fetchAppAllusers()]) 
 		
 }
 
@@ -58,6 +64,9 @@ function *fetchTicketAdditional(action) {
 	const url2 = `api/v2/ticket-history`;
 	const res2= yield call(request.get, url2, {ticketId});
 	yield put(LoadHistoryById(res2));	
+	const url3 = `api/v2/tickets/tree/${ticketId}`
+	const res3= yield call(request.get, url3);
+	yield put(LoadTree(res3,action.treeData));	
 }
 
 

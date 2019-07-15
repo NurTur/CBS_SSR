@@ -1,22 +1,31 @@
 #home {
   position: fixed;
-  margin-top:20px;
+  margin-top:10px;
   margin-left: 1vw;
   width: 98vw;
   height: 88vh;
+
   display: grid;
+  grid-template-columns: 1fr 333px;
+  grid-template-rows: 75% 25%;
   grid-template-areas:
-  "tableHome additionHome";
-  grid-template-columns:1fr 333px;
-    
-    .tableHome
+  "tableHome additionHome"
+  "treeHome additionHome";
+   
+     .tableHome
     {
-       grid-area: tableHome;      
+      grid-area: tableHome;  
     }
     .additionHome
     {
      grid-area: additionHome;  
-   }
+    }
+    .treeHome
+    {
+     grid-area: treeHome;  
+    }
   
+    
+
     
  }

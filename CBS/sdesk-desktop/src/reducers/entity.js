@@ -1,6 +1,6 @@
 import * as ActionTypes from "../actions/actionTypes";
 
-const initialState = { appUser: {},cities:[],
+const initialState = { appUser: {},cities:[], users:[],
 					   servicetypes:[],statuses:[],
 					   types:[],vendors:[],devices:[], 
 					   tickets:{count: 0, rows:[]}, hash:"" }
@@ -8,7 +8,9 @@ const initialState = { appUser: {},cities:[],
 function Entity(state = initialState, action) {
 	switch (action.type) {
 	case ActionTypes.ENTITY_USER_LOADED: 
-    	return Object.assign({},state,{appUser:action.payload})
+		return Object.assign({},state,{appUser:action.payload})
+	case ActionTypes.ENTITY_ALLUSERS_LOADED: 
+		return Object.assign({},state,{users:action.payload})	
 	case ActionTypes.ENTITY_REFERENCES_LOADED: 
 		return Object.assign({},state,{
 		cities:action.payload['cities'],

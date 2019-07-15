@@ -11,7 +11,6 @@ class Index extends React.Component {
     state = { modal: false, searchArray:[] };
 
     toggle=()=> {
-      /*if (this.props.item.typeId==4) {*/
       this.setState({ modal: true }); 
     }
   
@@ -38,15 +37,11 @@ class Index extends React.Component {
     const {item}=this.props;
     const {searchArray,modal}=this.state;
   
-    if (modal)
-    {
-      console.log("nur",searchArray); 
-    }
-   
+     
     return (
         <React.Fragment>
-            <Button onClick={this.toggle} color="primary">Инфо</Button>
-            {modal &&
+            <Button className="fontMiddle" onClick={this.toggle} color="primary">Инфо</Button>
+            { modal &&
             <ShowTicketCustomer modal={true} searchArray={searchArray} 
             toggleModal={this.toggleModal} typeId={item.typeId}/>}
     

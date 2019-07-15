@@ -14,7 +14,8 @@ class TableTickets extends React.Component {
     const {rows,count}=this.props.Entity.tickets;
     const {servicetypes,statuses,cities}=this.props.Entity;
 
-
+    const city=cities.find(x => x.id === 0)
+    
     return (
       <React.Fragment>       
      <div id="table">
@@ -29,7 +30,13 @@ class TableTickets extends React.Component {
         <tbody>  
          {count>0?
          rows.map((e)=>
-         <tr onClick={()=>this.props.GetTicketId(e.id)}>
+         <tr onClick={()=>this.props.GetTicketId(e.id,{customer: e.customer.name, 
+         equipment: 
+         `TM - ${(e.equipment==null?"":
+         (e.equipment.equipmentType.model==null?"":e.equipment.equipmentType.model))}
+          SN - ${(e.equipment==null?"":
+          (e.equipment.serialNumber==null?"":e.equipment.serialNumber))}`         
+         })}>
          {columns[0].status && <td id="col1">< ShowTicketsInfo item={e} /></td>}
          {columns[1].status && <td id="col2">{e.number}</td>}
          {columns[2].status && <td id="col3">{servicetypes.find(x => x.id === e.serviceTypeId).name}</td>}
@@ -46,12 +53,12 @@ class TableTickets extends React.Component {
          {columns[11].status && <td id="col12">{""}</td>}
          {columns[12].status && <td id="col13">{e.performer==null?"":e.performer.name}</td>}
          {columns[13].status && <td id="col14">{e.equipment==null?"":
-         (e.equipment.equipmentType.name==null?"":e.equipment.equipmentType.name)}</td>}
+         (e.equipment.equipmentType.model==null?"":e.equipment.equipmentType.model)}</td>}
          {columns[14].status && <td id="col15">{e.equipment==null?"":
          (e.equipment.serialNumber==null?"":e.equipment.serialNumber)}</td>}
          {columns[15].status && <td id="col16">{e.equipment==null?"":
          (e.equipment.regNumber==null?"":e.equipment.regNumber)}</td>} 
-         {columns[16].status && <td id="col17">{cities.find(x => x.id === e.cityId).name}</td>}
+         {columns[16].status && <td id="col17">{cities.find(x => x.id === e.cityId)?cities.find(x => x.id === e.cityId).name:""}</td>}
          {columns[17].status && <td id="col18">{e.subcontractorFlag===1?"Да":""}</td>}
          {columns[18].status && <td id="col19">{e.reasonDescription==null?"":e.reasonDescription}</td>}       
          
