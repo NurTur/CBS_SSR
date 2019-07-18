@@ -13,12 +13,14 @@ class TableTickets extends React.Component {
     const {columns}=this.props.Global;
     const {rows,count}=this.props.Entity.tickets;
     const {servicetypes,statuses,cities}=this.props.Entity;
-
-    const city=cities.find(x => x.id === 0)
     
+    const width = parseInt((window.innerWidth-333)*0.98);
+    let height=(this.props.status===0?parseInt(window.innerHeight*0.88)+10:parseInt((window.innerHeight*0.88+10)*0.75));
+    console.log("WAWA2",width,'  ',height,' ',window.innerHeight-50,'  ',document.body.clientWidth);
+
     return (
       <React.Fragment>       
-     <div id="table">
+     <div id="table"  style={{height:`${height}px`,width:`${width}px`}}>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -70,11 +72,9 @@ class TableTickets extends React.Component {
          </Table>
        </div>
      
-       </React.Fragment>
+      </React.Fragment>
     );
   }
 }
-
 export default connect(state => ({ Additional:state.Additional,Global: state.Global,Entity: state.Entity }),
 dispatch => bindActionCreators({ GetTicketId, LoadComments }, dispatch)) (TableTickets);
-

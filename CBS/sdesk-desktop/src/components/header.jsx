@@ -45,10 +45,7 @@ render()
      <UncontrolledTooltip placement="top" target="searchTooltip">Поиск</UncontrolledTooltip>
     
      {(this.state.visible) && <ViewerFilters/>}
-
-
-
-
+     
     <div className="logotip"><img alt="logo" className="img" src="/images/logo.png" />CBS SERVICE</div>
     <div id="searchTooltip" className="search" 
     onClick={this._handleClick} 

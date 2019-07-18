@@ -5,52 +5,19 @@ import "../../../styles/shared/showTree.less";
 
 class TreeBox extends React.Component { 
     render() {   
-    const { ticketId, tree, treeData }=this.props.Additional;
+    const { tree, treeData }=this.props.Additional;
     const {servicetypes,statuses,users,cities}=this.props.Entity;
-
-    let result="";
-    let children=[];
-    let status=0;
-
-    if (tree.hasOwnProperty('children')) { children=tree.children }
-    
-    if (ticketId!==null && ticketId==tree.id && children.length===1)
-    {
-        result="Подчиненная заявка";
-        status=2;
-    } 
-    if (ticketId!==null && ticketId==tree.id && children.length>1)
-    {
-        result="Подчиненные заявки";
-        status=2;
-    } 
-    if (ticketId!==null && ticketId!=tree.id && children.length>0)
-    {
-        result="Родительская заявка"; 
-        status=1;
-    } 
+    const {children,result,status}=this.props; 
+    const width = parseInt((window.innerWidth-333)*0.98);
+    let height=(status===0?0:parseInt((window.innerHeight*0.88+10)*0.25));
 
 
-    console.log("WAW2",status,' ',children)
-  
-    return  <div id="showTree">
+    console.log("WAW2",status,' ',children)  
+    return  <div id="showTree" style={{height:`${height}px`,width:`${width}px`}}>
        <div className="treeHeader">{result}</div>
        <div className="treeMain">
 
         { status>0 && <Table striped bordered hover>
-        {/*<thead>
-          <tr>
-            <th id="col2">Номер Заявки</th>
-            <th id="col3">Вид работ</th>
-            <th id="col4">Дата подачи</th>
-            <th id="col10">Заказчик</th>
-            <th id="col6">№ заказа от постав.</th>
-            <th id="col11">Статус</th>
-            <th id="col13">Исполнитель</th>            
-            <th id="col14">Оборудование</th>
-            <th id="col17">Город</th>
-          </tr>
-        </thead>*/}
         <tbody> 
         { status===1 &&
         <tr>
